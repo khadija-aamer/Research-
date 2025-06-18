@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Just A Quick Quiz...</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fefefe;
+      text-align: center;
+      padding: 50px;
+      color: #222;
+    }
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .question {
+      font-size: 22px;
+      margin: 40px 0 20px;
+    }
+    .btn {
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background-color: #005fa3;
+    }
+    #revealSection {
+      display: none;
+      margin-top: 50px;
+      animation: fadeIn 1.5s ease;
+    }
+    #regiForm input, #regiForm textarea {
+      width: 300px;
+      padding: 10px;
+      margin: 10px auto;
+      display: block;
+    }
+    #regiForm button {
+      background-color: #28a745;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <h1>Just A Quick Quiz 👀</h1>
+  <p>Answer honestly. Or don’t. It’s chaos either way.</p>
+
+  <div id="questionBox">
+    <div class="question" id="questionText">Are you funny? 😄</div>
+    <div id="buttons">
+      <button class="btn" onclick="nextQuestion()">Yes</button>
+      <button class="btn" onclick="nextQuestion()">No</button>
+    </div>
+  </div>
+
+  <div id="revealSection">
+    <h2>🎉 PLOT TWIST: It Was a Setup!</h2>
+    <p>You’ve officially been selected to hear this before anyone else…</p>
+    <h3>🔥 Introducing: The <u>Research Summer Camp 2025</u></h3>
+    <p>For the wildly curious, the mildly chaotic, and the secretly brilliant.</p>
+    <ul style="text-align: left; display: inline-block;">
+      <li>📅 <strong>Dates:</strong> July 15–30, 2025</li>
+      <li>🏫 <strong>Venue:</strong> Lahore Science Center</li>
+      <li>👩‍🔬 <strong>Open To:</strong> Students aged 14–18</li>
+      <li>🧪 <strong>Includes:</strong> Hands-on labs, real research, epic people</li>
+    </ul>
+
+    <div id="regiForm">
+      <h3>📝 Register Now</h3>
+      <form action="https://example.com/submit" method="post">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="text" name="school" placeholder="School Name" required>
+        <textarea name="why" placeholder="Why do you want to join?" rows="4" required></textarea>
+        <button type="submit" class="btn">Submit Registration</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      "Are you funny? 😄",
+      "Do you get bored easily? 😴",
+      "Do you secretly think you're a genius? 🧠",
+      "Are you the type to click mysterious buttons like this one? 🔘",
+      "Will you have to delete your ChatGPT history because of the weird stuff you wanna know about life but could get you in trouble? 💻💥",
+      "Do you wanna sound cool and boast an award — but without the mental breakdowns that usually come with it? 🏆🧘‍♀️",
+      "Is Khadija cool? 😎"
+    ];
+
+    let currentQ = 0;
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ < questions.length) {
+        const qText = questions[currentQ];
+        document.getElementById("questionText").innerText = qText;
+        if (currentQ === questions.length - 1) {
+          document.getElementById("buttons").innerHTML = `
+            <button class="btn" onclick="nextQuestion()">Yes, obviously.</button>
+          `;
+        }
+      } else {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("revealSection").style.display = "block";
+        confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
+        const audio = new Audio('https://actions.google.com/sounds/v1/cartoon/congratulations.ogg');
+        audio.play();
+      }
+    }
+  </script>
+
+</body>
+</html>
