@@ -1,128 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Just A Quick Quiz...</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LGS OPF Summer Quiz</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #fefefe;
-      text-align: center;
-      padding: 50px;
-      color: #222;
+      background: #f0f4f8;
+      color: #333;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-    h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
+    h1, h2 {
+      color: #2c3e50;
     }
     .question {
-      font-size: 22px;
-      margin: 40px 0 20px;
+      margin-bottom: 20px;
     }
-    .btn {
-      padding: 12px 25px;
-      margin: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: #0077cc;
-      color: white;
+    .question h3 {
+      margin-bottom: 10px;
+    }
+    .options button {
+      display: block;
+      margin: 6px 0;
+      padding: 10px;
       border: none;
-      border-radius: 6px;
+      background: #3498db;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
       transition: 0.3s;
     }
-    .btn:hover {
-      background-color: #005fa3;
+    .options button:hover {
+      background: #2980b9;
     }
-    #revealSection {
+    #result {
       display: none;
-      margin-top: 50px;
-      animation: fadeIn 1.5s ease;
-    }
-    #regiForm input, #regiForm textarea {
-      width: 300px;
-      padding: 10px;
-      margin: 10px auto;
-      display: block;
-    }
-    #regiForm button {
-      background-color: #28a745;
+      text-align: center;
+      margin-top: 40px;
+      animation: fadeIn 2s ease-in-out;
     }
     @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
+    .hidden { display: none; }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-
-  <h1>Just A Quick Quiz 👀</h1>
-  <p>Answer honestly. Or don’t. It’s chaos either way.</p>
-
-  <div id="questionBox">
-    <div class="question" id="questionText">Are you funny? 😄</div>
-    <div id="buttons">
-      <button class="btn" onclick="nextQuestion()">Yes</button>
-      <button class="btn" onclick="nextQuestion()">No</button>
+  <h1>What Should You Be Doing This Summer?</h1>
+  <div id="quiz">
+    <div class="question" id="q1">
+      <h3>1. What describes you best?</h3>
+      <div class="options">
+        <button onclick="nextQuestion('q2')">The Curious Cat</button>
+        <button onclick="nextQuestion('q2')">The Lowkey Genius</button>
+        <button onclick="nextQuestion('q2')">The Fun-Loving Nerd</button>
+        <button onclick="nextQuestion('q2')">The “Wait I Have a Random Question” Person</button>
+      </div>
+    </div>
+    <div class="question hidden" id="q2">
+      <h3>2. Which is your default browser tab when you're bored?</h3>
+      <div class="options">
+        <button onclick="nextQuestion('q3')">Wikipedia</button>
+        <button onclick="nextQuestion('q3')">YouTube documentaries</button>
+        <button onclick="nextQuestion('q3')">Reddit r/NoStupidQuestions</button>
+        <button onclick="nextQuestion('q3')">Something I Googled and went down a rabbit hole for</button>
+      </div>
+    </div>
+    <div class="question hidden" id="q3">
+      <h3>3. What’s your reaction when you learn a weird fact?</h3>
+      <div class="options">
+        <button onclick="nextQuestion('q4')">Tell everyone immediately</button>
+        <button onclick="nextQuestion('q4')">Google three more related facts</button>
+        <button onclick="nextQuestion('q4')">Add it to my “cool info” list</button>
+        <button onclick="nextQuestion('q4')">Sit in silence thinking, “Whoa…”</button>
+      </div>
+    </div>
+    <div class="question hidden" id="q4">
+      <h3>4. What kind of summer sounds best to you?</h3>
+      <div class="options">
+        <button onclick="nextQuestion('q5')">Where I actually *learn* something cool</button>
+        <button onclick="nextQuestion('q5')">Where I meet smart, funny people</button>
+        <button onclick="nextQuestion('q5')">Where I do something productive but fun</button>
+        <button onclick="nextQuestion('q5')">Where I get to be part of something different</button>
+      </div>
+    </div>
+    <div class="question hidden" id="q5">
+      <h3>5. Be honest — are you lowkey scared of your ChatGPT history?</h3>
+      <div class="options">
+        <button onclick="nextQuestion('q6')">Yes, and I clear it more often than my browser history</button>
+        <button onclick="nextQuestion('q6')">It's a dark place and I accept it</button>
+        <button onclick="nextQuestion('q6')">I laugh... then cry... then ask ChatGPT again</button>
+        <button onclick="nextQuestion('q6')">I pretend it doesn’t exist</button>
+      </div>
+    </div>
+    <div class="question hidden" id="q6">
+      <h3>6. Is Khadija Aamer the coolest person you know?</h3>
+      <div class="options">
+        <button onclick="showResult()">Yes 😎</button>
+      </div>
     </div>
   </div>
 
-  <div id="revealSection">
-    <h2>🎉 PLOT TWIST: It Was a Setup!</h2>
-    <p>You’ve officially been selected to hear this before anyone else…</p>
-    <h3>🔥 Introducing: The <u>Research Summer Camp 2025</u></h3>
-    <p>For the wildly curious, the mildly chaotic, and the secretly brilliant.</p>
-    <ul style="text-align: left; display: inline-block;">
-      <li>📅 <strong>Dates:</strong> July 15–30, 2025</li>
-      <li>🏫 <strong>Venue:</strong> Lahore Science Center</li>
-      <li>👩‍🔬 <strong>Open To:</strong> Students aged 14–18</li>
-      <li>🧪 <strong>Includes:</strong> Hands-on labs, real research, epic people</li>
-    </ul>
-
-    <div id="regiForm">
-      <h3>📝 Register Now</h3>
-      <form action="https://example.com/submit" method="post">
-        <input type="text" name="name" placeholder="Full Name" required>
-        <input type="email" name="email" placeholder="Email Address" required>
-        <input type="text" name="school" placeholder="School Name" required>
-        <textarea name="why" placeholder="Why do you want to join?" rows="4" required></textarea>
-        <button type="submit" class="btn">Submit Registration</button>
-      </form>
-    </div>
+  <div id="result">
+    <h2>🎉 Your Result is In!</h2>
+    <p><strong>Diagnosis:</strong> Incurable Curiosity Syndrome (ICS)</p>
+    <p>🧬 The perfect treatment? The <strong>LGS OPF Summer Research Camp</strong>!</p>
+    <p>
+      🚀 For the thinkers, Googlers, and idea-hoarders of the world —<br>
+      📍 <strong>Location:</strong> LGS OPF<br>
+      🗓️ <strong>Dates:</strong> [Insert dates]<br>
+      💻 <strong>Register now:</strong> <a href="#">[Insert registration link]</a>
+    </p>
+    <p>💡 Come with questions. Leave with curiosity levels maxed out.</p>
+    <p>🧠 Also confirmed: Khadija Aamer is, in fact, the coolest.</p>
   </div>
 
   <script>
-    const questions = [
-      "Are you funny? 😄",
-      "Do you get bored easily? 😴",
-      "Do you secretly think you're a genius? 🧠",
-      "Are you the type to click mysterious buttons like this one? 🔘",
-      "Will you have to delete your ChatGPT history because of the weird stuff you wanna know about life but could get you in trouble? 💻💥",
-      "Do you wanna sound cool and boast an award — but without the mental breakdowns that usually come with it? 🏆🧘‍♀️",
-      "Is Khadija cool? 😎"
-    ];
+    function nextQuestion(nextId) {
+      const current = document.querySelector('.question:not(.hidden)');
+      current.classList.add('hidden');
+      document.getElementById(nextId).classList.remove('hidden');
+    }
 
-    let currentQ = 0;
-
-    function nextQuestion() {
-      currentQ++;
-      if (currentQ < questions.length) {
-        const qText = questions[currentQ];
-        document.getElementById("questionText").innerText = qText;
-        if (currentQ === questions.length - 1) {
-          document.getElementById("buttons").innerHTML = `
-            <button class="btn" onclick="nextQuestion()">Yes, obviously.</button>
-          `;
-        }
-      } else {
-        document.getElementById("questionBox").style.display = "none";
-        document.getElementById("revealSection").style.display = "block";
-        confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
-        const audio = new Audio('https://actions.google.com/sounds/v1/cartoon/congratulations.ogg');
-        audio.play();
-      }
+    function showResult() {
+      document.getElementById('quiz').style.display = 'none';
+      document.getElementById('result').style.display = 'block';
     }
   </script>
-
 </body>
 </html>
+
